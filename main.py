@@ -16,16 +16,12 @@ def validate(obj):
 	return False
 	
 class TicTicTac:
-	                
+	board=[ ["1","2","3"],["4","5","6"],["7","8","9"]]	                
 	log=[]
 	                
 	def __init__(self,player1,player2):
 		self.p1=player1
 		self.p2=player2
-		self.board=[ 
-                	["1","2","3"],
-	                ["4","5","6"],
-	                ["7","8","9"]]
 		
 	@property
 	def show_board(self):
@@ -42,6 +38,15 @@ class TicTicTac:
 		return text
 		
 	def change_position(self,pos,letter):
+		 
+		 total=self.board[0]+self.board[1]+self.board[2]
+		 
+		 if(str(pos) not in total ):
+		 	
+		 	print("Try again lol")
+		 	
+		 	return False
+		 
 		 if(pos==1):
 		 	self.board[0][0]=letter
 		 if(pos==2):
@@ -62,22 +67,24 @@ class TicTicTac:
      		  self.board[2][2]=letter
      		  		
 	def player1_play(self):
+	   	print(self.show_board)
 	   	player1=int(input(" {0} Enter your position you has X: ".format(self.p1)))
 	   	
 	   	if(player1>0):
 	   		self.log.append(self.p1)
-	   		self.change_position(player1,"X")
+	   		if(self.change_position(player1,"X")==False):
+	   			self.player1_play()
+	   			
 	   	
-	   	print(self.show_board)
     				    	
 	def player2_play(self):
+	   	print(self.show_board)
 	   	player2=int(input(" {0} Enter your position you has O: ".format(self.p2)))
 	   	
 	   	if(player2>0):
 	   		self.log.append(self.p2)
-	   		self.change_position(player2,"O")
-	   	
-	   	print(self.show_board)
+	   		if(self.change_position(player2,"X")==False):
+	   			self.player2_play()
     				    			
 	def run(self):
 		while True:
